@@ -1,4 +1,4 @@
-import "./Card.css";
+import "../UI/Card.css";
 
 function Card(props) {
   //allow the styles to apply to our custom Card contanier
