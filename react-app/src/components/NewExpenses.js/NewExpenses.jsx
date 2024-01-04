@@ -3,11 +3,11 @@ import "./NewExpenses.css";
 
 const NewExpenses = () => {
   const saveExpenseDataHandler = (enteredData) => {
-    const expenseData = {
+    const enteredExpenseData = {
       ...enteredData,
       id: Math.random().toString(),
     };
-    console.log(expenseData);
+    console.log(enteredExpenseData);
   };
   return (
     <div className="new-expense">
