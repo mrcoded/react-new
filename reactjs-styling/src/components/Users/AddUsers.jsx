@@ -1,4 +1,5 @@
 import Card from "../UI/Card/Card";
+import classes from "../Users/AddUser.module.css";
 
 const AddUsers = (props) => {
   const addUserHandler = (e) => {
@@ -6,7 +7,7 @@ const AddUsers = (props) => {
   };
 
   return (
-    <Card>
+    <Card className={classes.input}>
       <form onSubmit={addUserHandler}>
         <label htmlFor="username">Username</label>
         <input id="username" type="text" />
