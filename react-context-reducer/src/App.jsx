@@ -9,6 +9,7 @@ function App() {
   
   
   useEffect(()=>{
+    //fn runs once if no dependency is set to prevent re rendering
     const storedLoggedIn = localStorage.getItem("isLoggedIn")
   
     if(storedLoggedIn === '1') {
@@ -25,6 +26,7 @@ function App() {
   };
 
   const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn")
     setIsLoggedIn(false);
   };
 
