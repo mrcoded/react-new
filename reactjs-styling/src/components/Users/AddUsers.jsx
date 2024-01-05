@@ -46,6 +46,7 @@ const AddUsers = (props) => {
   const errorHandler = () => {
     setError(null);
   };
+
   return (
     <Wrapper>
       {error && (
