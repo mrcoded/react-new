@@ -9,6 +9,7 @@ const AddUsers = (props) => {
 
   const addUserHandler = (e) => {
     e.preventDefault();
+    console.log(age, username);
   };
 
   const usernameChangeHandler = (e) => {
@@ -16,7 +17,7 @@ const AddUsers = (props) => {
   };
 
   const ageChangeHandler = (e) => {
-    setUsername(e.target.value);
+    setAge(e.target.value);
   };
 
   return (
