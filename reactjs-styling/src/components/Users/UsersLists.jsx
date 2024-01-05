@@ -1,8 +1,9 @@
 import Card from "../UI/Card/Card";
+import classes from "./UsersLists.module.css";
 
 const UsersLists = (props) => {
   return (
-    <Card>
+    <Card className={classes.users}>
       <ul>
         {props.users.map((user) => (
           <li>

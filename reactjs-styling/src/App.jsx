@@ -4,6 +4,7 @@ import CourseGoalList from "./components/CourseGoals/CourseGoalList/CourseGoalLi
 import CourseInput from "./components/CourseGoals/CourseInput/CourseInput";
 import "./App.css";
 import AddUsers from "./components/Users/AddUsers";
+import UsersLists from "./components/Users/UsersLists";
 
 const App = () => {
   const [courseGoals, setCourseGoals] = useState([
@@ -52,6 +53,7 @@ const App = () => {
         } */}
       </section>
       <AddUsers />
+      <UsersLists users={[]} />
     </div>
   );
 };
