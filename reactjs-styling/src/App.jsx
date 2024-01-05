@@ -12,6 +12,14 @@ const App = () => {
     { text: "Finish the course!", id: "g2" },
   ]);
 
+  const [users, setUsers] = useState([]);
+
+  const addUserHandler = (name, age) => {
+    setUsers((prevUsers) => {
+      return [...prevUsers, { name, age }];
+    });
+  };
+
   const addGoalHandler = (enteredText) => {
     setCourseGoals((prevGoals) => {
       const updatedGoals = [...prevGoals];
@@ -52,8 +60,8 @@ const App = () => {
         ) // <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
         } */}
       </section>
-      <AddUsers />
-      <UsersLists users={[]} />
+      <AddUsers onAddUser={addUserHandler} />
+      <UsersLists users={users} />
     </div>
   );
 };
