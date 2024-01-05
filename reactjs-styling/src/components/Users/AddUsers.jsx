@@ -42,6 +42,7 @@ const AddUsers = (props) => {
     setAge(e.target.value);
   };
 
+  const errorHandler = () => {};
   return (
     <>
       {error && <ErrorModal title={error.title} message={error.message} />}
