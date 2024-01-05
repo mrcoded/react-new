@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import classes from "../Users/AddUser.module.css";
@@ -6,15 +6,24 @@ import ErrorModal from "../UI/ErrorModal";
 import Wrapper from "../Helpers/Wrapper";
 
 const AddUsers = (props) => {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
+  //using ref to get inputs
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
+  //   const [username, setUsername] = useState("");
+  //   const [age, setAge] = useState("");
   const [error, setError] = useState();
 
   const addUserHandler = (e) => {
-    console.log(age, username);
     e.preventDefault();
 
-    if (username.trim().length === 0 || age.trim().length === 0) {
+    //useRef to access input values
+    //useRef to quickly read values instead of state
+    const enteredName = nameInputRef.current.value;
+    const enteredAge = ageInputRef.current.value;
+    console.log(enteredAge, enteredName);
+
+    if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
         title: "Invalid Input",
         message: "Please enter a valid name and age (non-empty values).",
@@ -22,7 +31,7 @@ const AddUsers = (props) => {
       return;
     }
 
-    if (+age < 0) {
+    if (+enteredAge < 0) {
       setError({
         title: "Invalid age",
         message: "Please enter a valid sge (> 0).",
@@ -30,18 +39,21 @@ const AddUsers = (props) => {
       return;
     }
 
-    props.onAddUser(username, age);
-    setAge("");
-    setUsername("");
+    props.onAddUser(enteredName, enteredAge);
+    //manipulate DOM without react **BAD
+    ageInputRef.current.value = "";
+    nameInputRef.current.value = "";
+    // setAge("");
+    // setUsername("");
   };
 
-  const usernameChangeHandler = (e) => {
-    setUsername(e.target.value);
-  };
+  //   const usernameChangeHandler = (e) => {
+  //     setUsername(e.target.value);
+  //   };
 
-  const ageChangeHandler = (e) => {
-    setAge(e.target.value);
-  };
+  //   const ageChangeHandler = (e) => {
+  //     setAge(e.target.value);
+  //   };
 
   const errorHandler = () => {
     setError(null);
@@ -59,19 +71,26 @@ const AddUsers = (props) => {
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
+          {/* the input field are controlled components when the 
+          internal states of the input is not controled by REACT using 
+          states and we feed it the values and keystrokes onchange event handler */}
           <input
             id="username"
-            value={username}
+            // value={username}
             type="text"
-            onChange={usernameChangeHandler}
+            // onChange={usernameChangeHandler}
+            ref={nameInputRef}
           />
 
           <label htmlFor="age">Age (Years)</label>
+          {/* the input field are uncontrolled components because the 
+          internal states of the input is not controled by REACT using refs */}
           <input
             id="age"
-            value={age}
+            // value={age}
             type="number"
-            onChange={ageChangeHandler}
+            // onChange={ageChangeHandler}
+            ref={ageInputRef}
           />
 
           <Button type="submit">Add User</Button>
