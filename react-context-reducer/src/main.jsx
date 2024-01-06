@@ -5,6 +5,6 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <AuthContext.Provider><App /></AuthContext.Provider>
   </React.StrictMode>,
 )
