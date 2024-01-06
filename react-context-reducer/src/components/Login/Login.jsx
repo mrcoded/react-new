@@ -105,7 +105,7 @@ const Login = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     // props.onLogin(enteredEmail, enteredPassword);
-    props.onLogin(emailState.value, enteredPassword);
+    props.onLogin(emailState.value, pwdState.value);
   };
 
   return (
