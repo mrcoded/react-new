@@ -11,17 +11,21 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  useEffect(()=> {
+  //useeffect runs once
+  useEffect(() => {
     //use debouncing to to only get the final input
-    setTimeout(() => {
+    const identifier = setTimeout(() => {
+      console.log('check for validity');
       setFormIsValid(
         enteredEmail.includes('@') && enteredPassword.trim().length > 6
       );
     }, 500);
 
-    //cleanup function
-    return ()=> {
-      
+
+    //cleanup function runs before new side effect executes
+    return () => {
+      console.log('cleanup');
+      clearTimeout(identifier)
     }
 
   }, [enteredEmail, enteredPassword])
@@ -56,9 +60,8 @@ const Login = (props) => {
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <div
-          className={`${classes.control} ${
-            emailIsValid === false ? classes.invalid : ''
-          }`}
+          className={`${classes.control} ${emailIsValid === false ? classes.invalid : ''
+            }`}
         >
           <label htmlFor="email">E-Mail</label>
           <input
@@ -70,9 +73,8 @@ const Login = (props) => {
           />
         </div>
         <div
-          className={`${classes.control} ${
-            passwordIsValid === false ? classes.invalid : ''
-          }`}
+          className={`${classes.control} ${passwordIsValid === false ? classes.invalid : ''
+            }`}
         >
           <label htmlFor="password">Password</label>
           <input
@@ -94,3 +96,4 @@ const Login = (props) => {
 };
 
 export default Login;
+
