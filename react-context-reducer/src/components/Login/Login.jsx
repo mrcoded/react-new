@@ -4,7 +4,7 @@ import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 import AuthContext from '../../store/auth-context';
 
-const Login = (props) => {
+const Login = () => {
   const AuthCtx = useContext(AuthContext)
 
 
