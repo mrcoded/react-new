@@ -1,5 +1,13 @@
+import { useRef } from 'react'
 import classes from './Input.module.css'
+
 const Input = (props) => {
+    const inputRef = useRef()
+
+    const activate = () => {
+        inputRef.current.focus()
+    }
+
     return (
         <div
             className={`${classes.control} ${props.isValid === false ? classes.invalid : ''
@@ -7,6 +15,7 @@ const Input = (props) => {
         >
             <label htmlFor={props.label}>{props.label}</label>
             <input
+                ref={inputRef}
                 type={props.type}
                 id={props.id}
                 // value={enteredEmail}
