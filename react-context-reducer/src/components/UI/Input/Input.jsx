@@ -5,7 +5,7 @@ const Input = (props) => {
             className={`${classes.control} ${props.isValid === false ? classes.invalid : ''
                 }`}
         >
-            <label htmlFor={props}>E-Mail</label>
+            <label htmlFor={props.label}>{props.label}</label>
             <input
                 type={props.type}
                 id={props.id}
