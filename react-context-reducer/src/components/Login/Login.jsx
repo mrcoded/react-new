@@ -113,8 +113,9 @@ const Login = () => {
       // props.onLogin(enteredEmail, enteredPassword);
       AuthCtx.onLogin(emailState.value, pwdState.value);
     } else if (!emailIsValid) {
-
+      emailInputRef.current.focus()
     } else {
+      pwdInputRef.current.focus()
 
     }
   };
