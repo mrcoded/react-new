@@ -48,24 +48,28 @@ const Login = (props) => {
   // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  //useeffect runs once
-  // useEffect(() => {
-  //   //use debouncing to to only get the final input
-  //   const identifier = setTimeout(() => {
-  //     console.log('check for validity');
-  //     setFormIsValid(
-  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+
+  const { isValid: emailIsValid } = emailState
+  const { isValid: pwdIsValid } = pwdState
+
+  // useeffect runs once after state updates
+  useEffect(() => {
+    //use debouncing to to only get the final input
+    const identifier = setTimeout(() => {
+      console.log('check for validity');
+      setFormIsValid(
+        emailState.isValid && pwdState.isValid
+      );
+    }, 500);
 
 
-  //   //cleanup function runs before new side effect executes
-  //   return () => {
-  //     console.log('cleanup');
-  //     clearTimeout(identifier)
-  //   }
+    //cleanup function runs before new side effect executes
+    return () => {
+      console.log('cleanup');
+      clearTimeout(identifier)
+    }
 
-  // }, [enteredEmail, enteredPassword])
+  }, [emailState, pwdState])
 
   const emailChangeHandler = (event) => {
     // setEnteredEmail(event.target.value);
