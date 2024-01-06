@@ -48,7 +48,9 @@ const Login = (props) => {
   // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-
+  //obj destructuring with alias assignment 
+  // we used object destructuring to add object 
+  // properties as dependencies to useEffect().
   const { isValid: emailIsValid } = emailState
   const { isValid: pwdIsValid } = pwdState
 
@@ -58,7 +60,8 @@ const Login = (props) => {
     const identifier = setTimeout(() => {
       console.log('check for validity');
       setFormIsValid(
-        emailState.isValid && pwdState.isValid
+        // emailState.isValid && pwdState.isValid
+        emailIsValid && pwdIsValid
       );
     }, 500);
 
@@ -69,7 +72,7 @@ const Login = (props) => {
       clearTimeout(identifier)
     }
 
-  }, [emailState, pwdState])
+  }, [emailIsValid, pwdIsValid])
 
   const emailChangeHandler = (event) => {
     // setEnteredEmail(event.target.value);
