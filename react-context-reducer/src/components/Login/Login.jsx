@@ -7,6 +7,8 @@ import Input from '../UI/Input/Input';
 
 const Login = () => {
   const AuthCtx = useContext(AuthContext)
+  const emailInputRef = useRef()
+  const pwdInputRef = useRef()
 
   function emailReducer(state, action) {
     if (action.type === 'USER_INPUT') {
@@ -120,8 +122,8 @@ const Login = () => {
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <Input id="email" label="E-mail" type="email" isValid={emailIsValid} value={emailState.value} onChange={emailChangeHandler} onBlur={validateEmailHandler} />
-        <Input id="password" label="Password" type="password" isValid={pwdIsValid} value={pwdState.value} onChange={passwordChangeHandler} onBlur={validatePasswordHandler} />
+        <Input ref={emailInputRef} id="email" label="E-mail" type="email" isValid={emailIsValid} value={emailState.value} onChange={emailChangeHandler} onBlur={validateEmailHandler} />
+        <Input ref={pwdInputRef} id="password" label="Password" type="password" isValid={pwdIsValid} value={pwdState.value} onChange={passwordChangeHandler} onBlur={validatePasswordHandler} />
 
         <div className={classes.actions}>
           {/* <Button type="submit" className={classes.btn} disabled={!formIsValid}> */}
