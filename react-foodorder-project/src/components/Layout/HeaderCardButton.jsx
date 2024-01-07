@@ -1,10 +1,12 @@
+import CartIcon from "../Cart/CartIcon"
+import styles from './HeaderCartButton.module.css'
 
 const HeaderCardButton = (props) => {
     return (
         <button>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span><CartIcon /></span>
+            <span>Your Cart</span>
+            <span className={styles.badge}>3</span>
         </button>
     )
 }
