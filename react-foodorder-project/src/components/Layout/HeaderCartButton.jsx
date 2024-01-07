@@ -1,7 +1,7 @@
 import CartIcon from "../Cart/CartIcon"
 import styles from './HeaderCartButton.module.css'
 
-const HeaderCardButton = (props) => {
+const HeaderCartButton = (props) => {
     return (
         <button>
             <span><CartIcon /></span>
@@ -11,4 +11,4 @@ const HeaderCardButton = (props) => {
     )
 }
 
-export default HeaderCardButton
+export default HeaderCartButton
