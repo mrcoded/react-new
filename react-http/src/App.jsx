@@ -10,10 +10,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    //adding a pointer to the fn as a dependency
-    fetchMoviesHandler()
-  }, [])
 
   const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true)
@@ -46,6 +42,11 @@ function App() {
       // console.log(error);
     }
     setIsLoading(false)
+  }, [])
+
+  useEffect(() => {
+    //adding a pointer to the fn as a dependency
+    fetchMoviesHandler()
   }, [])
 
   let content = <p>Found No Movies..</p>
