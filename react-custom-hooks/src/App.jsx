@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
 import useHttp from './components/hooks/use-http';
+import { useCallback } from 'react';
 
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = data => {
+  const transformTasks = useCallback(data => {
     const loadedTasks = [];
 
     for (const taskKey in data) {
@@ -15,7 +16,7 @@ function App() {
     }
 
     setTasks(loadedTasks);
-  }
+  }, [])
 
   const httpData = useHttp({ url: 'https://react-http-e4524-default-rtdb.firebaseio.com/movies.json' },
     transformTasks)
