@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MoviesList from './components/MoviesList';
 import './App.css';
+import MoviesList from './components/MoviesList';
 
 function App() {
   const dummyMovies = [
