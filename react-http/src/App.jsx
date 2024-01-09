@@ -4,6 +4,7 @@ import './App.css';
 import MoviesList from './components/MoviesList';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
+import AddMovie from './components/AddMovie';
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -49,7 +50,11 @@ function App() {
   useEffect(() => {
     //adding a pointer to the fn as a dependency
     fetchMoviesHandler()
-  }, [fetchMoviesHandler])
+  }, [fetchMoviesHandler]);
+
+  const addMovieHandler = (movie) => {
+    console.log(movie);
+  }
 
   let content = <p>Found No Movies..</p>
 
@@ -62,6 +67,9 @@ function App() {
 
   return (
     <React.Fragment>
+      <section>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
