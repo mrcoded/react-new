@@ -6,28 +6,33 @@ import MoviesList from './components/MoviesList';
 function App() {
   const [movies, setMovies] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   async function fetchMoviesHandler() {
     setIsLoading(true)
+    setError(null)
 
-    const response = await fetch(`https://swapi.dev/api/films/`)
-    const data = await response.json()
-    // .then(res => {
-    //   return res.json()
-    // })
-    // .then(data => {
-    const movieData = data.results.map(data => {
-      return {
-        id: data.episode_id,
-        title: data.title,
-        openingText: data.opening_crawl,
-        releaseDate: data.release_date
-      }
-    })
-    setMovies(movieData)
-    setIsLoading(false)
-    console.log(movieData);
-
+    try {
+      const response = await fetch(`https://swapi.dev/api/films/`)
+      const data = await response.json()
+      // .then(res => {
+      //   return res.json()
+      // })
+      // .then(data => {
+      const movieData = data.results.map(data => {
+        return {
+          id: data.episode_id,
+          title: data.title,
+          openingText: data.opening_crawl,
+          releaseDate: data.release_date
+        }
+      })
+      setMovies(movieData)
+      setIsLoading(false)
+      console.log(movieData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
