@@ -35,6 +35,8 @@ function App() {
           releaseDate: data.release_date
         }
       })
+      //setstate is not used as cb function because react 
+      //guarantees that it ill not change
       setMovies(movieData)
       console.log(movieData);
     } catch (error) {
@@ -47,7 +49,7 @@ function App() {
   useEffect(() => {
     //adding a pointer to the fn as a dependency
     fetchMoviesHandler()
-  }, [])
+  }, [fetchMoviesHandler])
 
   let content = <p>Found No Movies..</p>
 
