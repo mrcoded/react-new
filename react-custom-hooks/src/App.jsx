@@ -8,23 +8,23 @@ import { useCallback } from 'react';
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = useCallback(data => {
-    const loadedTasks = [];
-
-    for (const taskKey in data) {
-      loadedTasks.push({ id: taskKey, text: data[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-  }, [])
-
-  const httpData = useHttp({ url: 'https://react-http-e4524-default-rtdb.firebaseio.com/movies.json' },
-    transformTasks)
+  const httpData = useHttp()
 
   const { isLoading, error, sendRequest: fetchTasks } = httpData
 
   useEffect(() => {
-    fetchTasks();
+    const transformTasks = data => {
+      const loadedTasks = [];
+
+      for (const taskKey in data) {
+        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+      }
+
+      setTasks(loadedTasks);
+    }
+
+    fetchTasks({ url: 'https://react-http-e4524-default-rtdb.firebaseio.com/movies.json' },
+      transformTasks);
   }, []);
 
   const taskAddHandler = (task) => {
