@@ -2,13 +2,20 @@
 import React, { useState } from 'react';
 import './App.css';
 import MoviesList from './components/MoviesList';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
 
 function App() {
   const [movies, setMovies] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  async function fetchMoviesHandler() {
+  useEffect(() => {
+    //adding a pointer to the fn as a dependency
+    fetchMoviesHandler()
+  }, [])
+
+  const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true)
     setError(null)
 
@@ -39,7 +46,7 @@ function App() {
       // console.log(error);
     }
     setIsLoading(false)
-  }
+  }, [])
 
   let content = <p>Found No Movies..</p>
 
