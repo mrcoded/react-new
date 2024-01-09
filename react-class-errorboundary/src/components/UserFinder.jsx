@@ -1,15 +1,12 @@
 import { Fragment, Component } from 'react';
 import Users from './Users';
 import classes from './UserFinder.module.css';
-
-const DUMMY_USERS = [
-    { id: 'u1', name: 'Max' },
-    { id: 'u2', name: 'Manuel' },
-    { id: 'u3', name: 'Julie' },
-];
-
+import UsersContext from '../store/users-context'
 
 class UserFinder extends Component {
+    //can only be called once
+    static contextType = UsersContext
+
     constructor() {
         super()
         this.state = {
@@ -21,14 +18,14 @@ class UserFinder extends Component {
     componentDidMount() {
         //only runs once
         //send http requests....
-        this.setState({ filteredUsers: DUMMY_USERS })
+        this.setState({ filteredUsers: this.context.users })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.searchTerm !== this.state.searchTerm) {
 
             this.setState({
-                filteredUsers: DUMMY_USERS.filter((user) =>
+                filteredUsers: this.context.users.filter((user) =>
                     user.name.includes(this.state.searchTerm))
             })
         }
@@ -40,16 +37,16 @@ class UserFinder extends Component {
         })
     }
 
-
-
     render() {
         return (
             <Fragment>
+                {/* <UsersContext.Consumer> */}
                 <div className={classes.finder}>
                     <input type='search'
                         onChange={this.searchChangeHandler.bind(this)} />
                 </div>
                 <Users users={this.state.filteredUsers} />
+                {/* </UsersContext.Consumer> */}
             </Fragment>
         );
     }
