@@ -33,11 +33,18 @@ import { useState } from 'react';
 
 const AvailableMeals = () => {
     const [meals, setMeals] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [httpError, setHttpError] = useState()
 
     useEffect(() => {
         const fetchMeal = async () => {
             //useeffect should not return a function but the cleanup fn can
             const res = await fetch(`https://react-http-e4524-default-rtdb.firebaseio.com/meals.json`)
+
+            if (!res.ok) {
+                throw new Error('Something went wrong')
+            }
+
             const data = await res.json()
             console.log(data);
 
@@ -54,10 +61,21 @@ const AvailableMeals = () => {
             }
             console.log(loadedMeals);
             setMeals(loadedMeals)
+            setIsLoading(false)
         }
-
-        fetchMeal()
+        try {
+            fetchMeal()
+        } catch (error) {
+            setIsLoading(false)
+            setHttpError(error.message)
+        }
     }, [])
+
+    if (isLoading) {
+        <section className={classes.MealsLoading}>
+            <p> Loading...</p>
+        </section>
+    }
 
     const mealsList = meals.map((meal) => (
         <MealItem
