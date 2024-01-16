@@ -1,41 +1,33 @@
-import { useState } from 'react';
-
 import Section from '../UI/Section';
 import TaskForm from './TaskForm';
+import useHttp from '../hooks/use-http';
 
 const NewTask = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest: sendTaskRequest } = useHttp()
 
-  const enterTaskHandler = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
+  const createTask = (task, data) => {
+    // const key = data.id
+    const generatedId = Math.random(); // firebase-specific => "name" contains generated id
+    const createdTask = { id: generatedId, text };
+    props.onAddTask(createdTask);
+    console.log(data);
+  }
+
+  const enterTaskHandler = async (task) => {
     try {
-      const response = await fetch(
-        'https://react-http-6b4a6.firebaseio.com/tasks.json',
-        {
-          method: 'POST',
-          body: JSON.stringify({ text: taskText }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      sendTaskRequest({
+        url: 'https://react-http-e4524-default-rtdb.firebaseio.com/movies.json',
+        method: 'POST',
+        body: { text: task },
+        headers: {
+          'Content-Type': 'application/json',
         }
-      );
-
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
-
-      const data = await response.json();
-
-      const generatedId = data.name; // firebase-specific => "name" contains generated id
-      const createdTask = { id: generatedId, text: taskText };
-
-      props.onAddTask(createdTask);
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
+      }, createTask.bind(task))
+      console.log(task);
     }
-    setIsLoading(false);
+    catch (err) {
+      console.log(err.message || 'Something went wrong!');
+    }
   };
 
   return (
