@@ -39,7 +39,7 @@ const AvailableMeals = () => {
     useEffect(() => {
         const fetchMeal = async () => {
             //useeffect should not return a function but the cleanup fn can
-            const res = await fetch(`https://react-http-e4524-default-rtdb.firebaseio.com/meals.json`)
+            const res = await fetch(`https://reacthttpv2-default-rtdb.firebaseio.com/meals.json`)
 
             if (!res.ok) {
                 throw new Error('Something went wrong')
