@@ -26,7 +26,7 @@ const NewCommentForm = (props) => {
     // send comment to server
     //you can use useParams too with restriction of having *****
     //to pass the ID as part of the URL or use the props*****
-    sendRequest({ text: enteredText }, props.quoteId);
+    sendRequest({ commentData: { text: enteredText }, quoteId: props.quoteId });
   };
 
   return (
