@@ -1,8 +1,10 @@
 import classes from './ProfileForm.module.css';
 import { useRef, useState } from 'react';
 import { getAuth, updatePassword } from "@firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 const ProfileForm = () => {
+  const navigate = useNavigate();
   const newPasswordInputRef = useRef();
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -33,6 +35,8 @@ const ProfileForm = () => {
     setErrorMessage(null); // Clear any previous error messages
 
     await handleUpdatePassword(newPassword);
+
+    navigate("/");
   };
 
   return (
