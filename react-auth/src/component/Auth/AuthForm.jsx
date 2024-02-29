@@ -66,7 +66,7 @@ const AuthForm = () => {
       // const token = await user.getIdToken()
       // console.log(token);
       // authCtx.login(user.uid)
-
+      navigate("/")
     } catch (error) {
       let errorMessage = 'Authentication failed!';
       if (error && error.message) {
