@@ -6,8 +6,8 @@ import { counterActions } from '../store';
 const Counter = () => {
   //use selector allows us to get a slice of the store
   //changes to the store will cause the subscription to be be executed
-  const counter = useSelector(state => state.counter);
-  const show = useSelector(state => state.showCounter);
+  const counter = useSelector(state => state.counter.counter);
+  const show = useSelector(state => state.counter.showCounter);
 
   //dispatch fn calls actions against redux store
   const dispatch = useDispatch();
