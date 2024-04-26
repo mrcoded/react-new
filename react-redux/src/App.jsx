@@ -5,6 +5,8 @@ import Products from './componentb/Shop/Products';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from './storeb/ui-slice';
 import Notification from './componentb/UI/Notification';
+import { fetchCartData, sendCartData } from './storeb/cart-actions';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -14,35 +16,45 @@ function App() {
 
   let isInitial = true;
 
+  //runs once
   useEffect(() => {
-    const sendCartData = async () => {
-      dispatch(uiActions.showNotification({
-        status: "pending",
-        title: "Sending...",
-        message: "Sending cart data!"
-      }));
+    dispatch(fetchCartData());
+  }, [dispatch]);
 
-      const response = await fetch(
-        'https://reacthttpv2-default-rtdb.firebaseio.com/cart.json',
-        {
-          method: "PUT",
-          body: JSON.stringify(cart)
-        }
-      );
+  useEffect(() => {
+    // const sendCartData = async () => {
+    //showNotification is an action creator
+    //thunk is a function that delays an action until later
+    //thunk is a action creator does not return the action itself but another 
+    //function that eventually returns the action.
 
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Sending cart data failed!")
-      }
+    // dispatch(uiActions.showNotification({
+    //   status: "pending",
+    //   title: "Sending...",
+    //   message: "Sending cart data!"
+    // }));
 
-      // const resData = await response.json();
+    // const response = await fetch(
+    //   'https://reacthttpv2-default-rtdb.firebaseio.com/cart.json',
+    //   {
+    //     method: "PUT",
+    //     body: JSON.stringify(cart)
+    //   }
+    // );
 
-      dispatch(uiActions.showNotification({
-        status: "success",
-        title: "Success!",
-        message: "Sucessfully sent cart data!"
-      }));
-    }
+    // console.log(response);
+    // if (!response.ok) {
+    //   throw new Error("Sending cart data failed!")
+    // }
+
+    // const resData = await response.json();
+
+    // dispatch(uiActions.showNotification({
+    //   status: "success",
+    //   title: "Success!",
+    //   message: "Sucessfully sent cart data!"
+    // }));
+    // }
 
     //for one time request executiom
     if (isInitial) {
@@ -50,14 +62,17 @@ function App() {
       return
     }
 
-    sendCartData().catch(error => {
-      dispatch(uiActions.showNotification({
-        status: "error",
-        title: "Error!",
-        message: "Sending cart data failed!"
-      }));
+    //action creators thunk
+    dispatch(sendCartData(cart))
 
-    })
+    // sendCartData().catch(error => {
+    //   dispatch(uiActions.showNotification({
+    //     status: "error",
+    //     title: "Error!",
+    //     message: "Sending cart data failed!"
+    //   }));
+
+    // })
   }, [cart, dispatch]);
 
   return (
